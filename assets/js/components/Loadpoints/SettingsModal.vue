@@ -177,7 +177,7 @@ const insertSorted = (arr: number[], num: number) => {
 };
 
 // TODO: add max physical current to loadpoint (config ui) and only allow user to select values in side that range (main ui, here)
-const MAX_CURRENT = 64;
+const MAX_CURRENT = 75; // Change max current from 64A to 75A
 
 const { AUTO, THREE_PHASES, ONE_PHASE } = PHASES;
 
