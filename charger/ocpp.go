@@ -49,6 +49,7 @@ type OCPP struct {
 }
 
 const defaultIdTag = "evcc" // RemoteStartTransaction only
+const minAllowedCurrentOCPP = 6.5	//new
 
 func init() {
 	registry.AddCtx("ocpp", NewOCPPFromConfig)
@@ -302,6 +303,11 @@ func (c *OCPP) Enable(enable bool) error {
 
 // setCurrent sets the TxDefaultChargingProfile with given current
 func (c *OCPP) setCurrent(current float64) error {
+	/////////////////////
+	if current < minAllowedCurrentOCPP {
+		current = minAllowedCurrentOCPP
+	}
+	/////////////////////
 	err := c.conn.SetChargingProfileRequest(c.createTxDefaultChargingProfile(math.Trunc(10*current) / 10))
 	if err != nil {
 		err = fmt.Errorf("set charging profile: %w", err)
